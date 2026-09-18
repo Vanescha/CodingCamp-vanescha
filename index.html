@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Aplikasi sederhana untuk mencatat dan memvisualisasikan pengeluaran harian.">
+  <title>Expense & Budget Visualizer</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-content">
+      <div>
+        <p class="eyebrow">Daily Finance</p>
+        <h1>Expense & Budget Visualizer</h1>
+        <p class="subtitle">Catat pengeluaranmu dan lihat distribusinya secara visual.</p>
+      </div>
+      <button id="themeToggle" class="theme-btn" type="button" aria-label="Ganti mode tampilan">🌙 Mode Gelap</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="balance-card" aria-labelledby="balanceTitle">
+      <div>
+        <p id="balanceTitle" class="card-label">TOTAL BALANCE</p>
+        <p id="totalBalance" class="balance-value">Rp0</p>
+        <p id="transactionCount" class="balance-meta">0 transaksi tercatat</p>
+      </div>
+    </section>
+
+    <section class="panel form-panel" aria-labelledby="formTitle">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Input</p>
+          <h2 id="formTitle">Tambah Transaksi</h2>
+        </div>
+      </div>
+
+      <form id="transactionForm" novalidate>
+        <div class="form-grid">
+          <div class="form-group">
+            <label for="itemName">Nama Barang</label>
+            <input id="itemName" name="itemName" type="text" maxlength="60"
+                   placeholder="Contoh: Makan siang" required>
+            <small class="error-message" id="itemNameError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="amount">Jumlah</label>
+            <div class="input-with-prefix">
+              <span>Rp</span>
+              <input id="amount" name="amount" type="number" min="1" step="1"
+                     placeholder="Contoh: 25000" required>
+            </div>
+            <small class="error-message" id="amountError"></small>
+          </div>
+
+          <div class="form-group">
+            <label for="category">Kategori</label>
+            <select id="category" name="category" required>
+              <option value="">Pilih kategori</option>
+              <option value="Makanan">Makanan</option>
+              <option value="Transportasi">Transportasi</option>
+              <option value="Hiburan">Hiburan</option>
+            </select>
+            <small class="error-message" id="categoryError"></small>
+          </div>
+        </div>
+
+        <button class="primary-btn" type="submit">+ Tambahkan Transaksi</button>
+        <p id="formMessage" class="form-message" role="status"></p>
+      </form>
+    </section>
+
+    <section class="dashboard-grid">
+      <div class="panel transactions-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">History</p>
+            <h2>Daftar Transaksi</h2>
+          </div>
+          <button id="clearAllBtn" class="text-btn" type="button">Hapus Semua</button>
+        </div>
+
+        <div id="transactionList" class="transaction-list" aria-live="polite"></div>
+      </div>
+
+      <div class="panel chart-panel">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Overview</p>
+            <h2>Pengeluaran per Kategori</h2>
+          </div>
+        </div>
+
+        <div class="chart-wrap">
+          <canvas id="expenseChart" aria-label="Grafik lingkaran pengeluaran berdasarkan kategori"></canvas>
+        </div>
+
+        <div id="categorySummary" class="category-summary"></div>
+      </div>
+    </section>
+
+    <section class="panel monthly-panel">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Optional Challenge</p>
+          <h2>Ringkasan Bulanan</h2>
+        </div>
+      </div>
+      <div id="monthlySummary" class="monthly-summary"></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>Expense & Budget Visualizer • Data tersimpan di browser menggunakan Local Storage.</p>
+    </div>
+  </footer>
+
+  <script src="js/script.js"></script>
+</body>
+</html>
